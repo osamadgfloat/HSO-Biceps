@@ -63,7 +63,7 @@ param vmSize string = 'Standard_B1s'
 param location string = resourceGroup().location
 
 @description('Name of the virtual machine.')
-param vmName string = 'HSO-VM'
+param vmName string
 
 @description('Security Type of the Virtual Machine.')
 @allowed([
@@ -255,7 +255,6 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
 }
 
 resource vmName_extension 'Microsoft.Compute/virtualMachines/extensions@2018-06-01' = if ((securityType == 'TrustedLaunch') && ((securityProfileJson.uefiSettings.secureBootEnabled == true) && (securityProfileJson.uefiSettings.vTpmEnabled == true))) {
-  parent: vm
   name: extensionName
   location: location
   properties: {
